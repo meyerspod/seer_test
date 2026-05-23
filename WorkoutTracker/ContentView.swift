@@ -1,11 +1,20 @@
 import SwiftUI
 
-// Placeholder — replaced in Step 2 with full navigation shell
 struct ContentView: View {
     var body: some View {
-        Text("Workout Tracker")
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black)
+        TabView {
+            RoutineListView()
+                .tabItem {
+                    Label("Routines", systemImage: "list.bullet.clipboard.fill")
+                }
+
+            // Placeholder — replaced in Step 5
+            Text("History coming in Step 5")
+                .foregroundStyle(.secondary)
+                .tabItem {
+                    Label("History", systemImage: "clock.fill")
+                }
+        }
+        .preferredColorScheme(.dark)
     }
 }
