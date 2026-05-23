@@ -6,6 +6,7 @@ struct RoutineDetailView: View {
     @Bindable var routine: WorkoutRoutine
 
     @State private var showingAddExercise = false
+    @State private var startingWorkout = false
 
     private var sortedExercises: [ExerciseTarget] {
         routine.exercises.sorted { $0.order < $1.order }
@@ -41,12 +42,14 @@ struct RoutineDetailView: View {
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                // "Start" wired in Step 4
-                Button("Start") {}
+                Button("Start") { startingWorkout = true }
                     .fontWeight(.bold)
                     .foregroundStyle(sortedExercises.isEmpty ? .gray : .green)
                     .disabled(sortedExercises.isEmpty)
             }
+        }
+        .navigationDestination(isPresented: $startingWorkout) {
+            ActiveWorkoutView(routine: routine)
         }
         .sheet(isPresented: $showingAddExercise) {
             AddExerciseSheet(routine: routine, isPresented: $showingAddExercise)
